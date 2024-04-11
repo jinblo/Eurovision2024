@@ -1,11 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from "react";
-import { app } from "../firebaseConfig";
+import { app } from "../services/firebaseConfig";
 import { getDatabase, ref, onValue } from 'firebase/database';
-import { StyleSheet, Text, View } from 'react-native';
+import { View } from 'react-native';
 import { FlatList } from "react-native";
 import { ListItem } from '@rneui/base';
 import { Button } from '@rneui/themed';
+import { styles } from '../styles';
 
 const database = getDatabase(app)
 
@@ -82,12 +83,3 @@ export default function Participants({ route, navigation }) {
     </View>
   )
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

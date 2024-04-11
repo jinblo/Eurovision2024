@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { StyleSheet, View } from 'react-native';
 import { Card, Text } from '@rneui/themed';
 import Rating from "./Rating";
+import { styles } from "../styles";
 
 export default function JuryView({ route, navigation }) {
   const participant = route.params.item[1];
@@ -52,11 +53,3 @@ export default function JuryView({ route, navigation }) {
   )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
