@@ -1,25 +1,31 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../services/firebaseConfig";
-import { Alert, View } from "react-native";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth, database } from "../firebaseConfig";
+import { View } from "react-native";
 import { Input, Button, Text } from '@rneui/themed';
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { styles } from "../styles";
+import { push, ref } from "firebase/database";
 
-export default function Login() {
+export default function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
   const navigation = useNavigation();
 
-  const login = () => {
-    signInWithEmailAndPassword(auth, email, password)
+  const register = () => {
+    createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        navigation.navigate("Performances");
+        updateProfile(auth.currentUser, { displayName: username })
+          .then(ok => {
+            console.log("updated")
+            navigation.navigate("Performances");
+          })
       })
       .catch(error => {
-        console.error(error)
-        alert("Login failed")
+        console.error(error);
+        alert(error.message);
       })
   }
 
@@ -29,6 +35,7 @@ export default function Login() {
         <Input
           label="EMAIL"
           textContentType="emailAddress"
+          autoCapitalize="none"
           keyboardType="email-address"
           inputStyle={{ width: 80 }}
           onChangeText={text => setEmail(text)}
@@ -38,14 +45,17 @@ export default function Login() {
           secureTextEntry={true}
           onChangeText={text => setPassword(text)}
         />
+        <Input
+          label="USERNAME"
+          onChangeText={text => setUsername(text)}
+        />
         <Button
-          color="green"
           size="lg"
-          onPress={login}>Login</Button>
+          onPress={register}>Register</Button>
         <Text
           style={{ margin: 10, marginTop: 20 }}
           size="lg"
-          onPress={() => navigation.navigate("Register")}>Register here</Text>
+          onPress={() => navigation.navigate("Login")}>Login here</Text>
       </View>
     </View>
   )

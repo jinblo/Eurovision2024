@@ -1,22 +1,18 @@
 import { StatusBar } from 'expo-status-bar';
-import { useEffect, useState } from "react";
-import { app } from "../services/firebaseConfig";
-import { getDatabase, ref, onValue } from 'firebase/database';
+import { useContext, useEffect, useState } from "react";
+import { database } from "../firebaseConfig";
+import { ref, onValue } from 'firebase/database';
 import { View } from 'react-native';
 import { FlatList } from "react-native";
 import { ListItem } from '@rneui/base';
 import { Button } from '@rneui/themed';
 import { styles } from '../styles';
 
-const database = getDatabase(app)
 
 export default function Participants({ route, navigation }) {
+  const client_id = process.env.EXPO_PUBLIC_SPOTIFY_CL_ID;
+  const cl_secret = process.env.EXPO_PUBLIC_SPOTIFY_CL_SECRET;
   const [entries, setEntries] = useState([]);
-  // VÄLIAIKAINEN RATKAISU, SIIRRÄ jonnekkin
-  const spot = {
-    cli_id: "f676e569bd03489ca88aaf6b28c3396a",
-    cli_secret: "95a82cb4cabe4ef0b6c4985f44ff981d"
-  };
   const [token, setToken] = useState();
   const [playlist, setPlaylist] = useState([]);
 
@@ -26,7 +22,7 @@ export default function Participants({ route, navigation }) {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded"
       },
-      body: `grant_type=client_credentials&client_id=${spot.cli_id}&client_secret=${spot.cli_secret}`
+      body: `grant_type=client_credentials&client_id=${client_id}&client_secret=${cl_secret}`
     })
       .then(response => response.json())
       .then(data => setToken(data.access_token))
