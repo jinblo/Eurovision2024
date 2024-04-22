@@ -36,3 +36,4 @@ yarn-error.*
 
 # db data
 participants.json
+mockdata.json

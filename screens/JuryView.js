@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { Button, Card, Text } from '@rneui/themed';
 import Rating from "../components/Rating";
 import { styles } from "../styles";
-import { push, ref, set } from "firebase/database";
+import { get, onValue, push, ref, set } from "firebase/database";
 import { auth, database } from "../firebaseConfig";
 import { GameContext } from "../services/Context";
 import { getAuth } from "firebase/auth";
@@ -12,6 +12,7 @@ import { getAuth } from "firebase/auth";
 
 export default function JuryView({ route, navigation }) {
   const { game } = useContext(GameContext);
+  const user = auth.currentUser.displayName;
   const participant = route.params.item[1];
   const [song, setSong] = useState(0);
   const [spectalcle, setSpectacle] = useState(0);
@@ -36,7 +37,7 @@ export default function JuryView({ route, navigation }) {
       vocal: vocal,
       creative: creative,
       performance: performance,
-      total: (song + spectalcle + vocal + creative + performance).toFixed(0)
+      total: (song + spectalcle + vocal + creative + performance)
     })
   }
 
@@ -45,8 +46,23 @@ export default function JuryView({ route, navigation }) {
   }, [song, spectalcle, vocal, creative, performance])
 
   const saveScore = () => {
-    const data = { [auth.currentUser.displayName]: total }
-    set(ref(database, `/games/${game}/${participant.country}/`), data)
+    const data = {
+      user: user,
+      score: total
+    }
+    /* Tarkoituksena hakea maan pistetaulukko, ja tarkastaa onko käyttäjä jo antanut maalle pisteitä
+    findIndex?
+    onValue(ref(database, `/games/${game}/${participant.country}`), (snapshot) => {
+      let snap = Object.entries(snapshot.val())
+      console.log("snap", snap)
+      console.log(snap.flat().filter(item => item.user === user))
+      for (let x of snap) {
+        if (x.user === user) {
+          console.log(x)
+        }
+      }
+    })*/
+    push(ref(database, `/games/${game}/${participant.country}`), data)
       .then(res => {
         setSaved("Tallennettu")
       })

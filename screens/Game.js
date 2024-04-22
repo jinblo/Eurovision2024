@@ -1,5 +1,5 @@
 import { TouchableOpacity, View } from "react-native";
-import { Card, Text } from '@rneui/themed';
+import { Card, Input, Text } from '@rneui/themed';
 import { styles } from "../styles";
 import { useContext, useEffect, useState } from "react";
 import { push, ref } from "firebase/database";
@@ -21,7 +21,12 @@ function Game({ route, navigation }) {
       })
   }
 
-
+  const joinGame = () => {
+    console.log("join game")
+    if (game != null) {
+      navigation.navigate('GameMode', { screen: 'Share' })
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -45,7 +50,7 @@ function Game({ route, navigation }) {
         </Card>
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={() => console.log("join game")}
+        onPress={joinGame}
         style={{ width: '85%' }}
       >
         <Card
@@ -59,7 +64,14 @@ function Game({ route, navigation }) {
           }}>
           <Card.Title h4 style={{ color: 'black' }}>Join</Card.Title>
           <Card.Divider color="black" />
-          <Text>Join a game</Text>
+          <View style={{ width: 200 }}>
+            <Input
+              label='GAME CODE'
+              placeholder='Type in game code'
+              onChangeText={text => setGame(text)}
+              value={game}
+            />
+          </View>
         </Card>
       </TouchableOpacity>
     </View >
