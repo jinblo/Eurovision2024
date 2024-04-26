@@ -9,19 +9,18 @@ import { GameContext } from "../services/Context";
 import { getAuth } from "firebase/auth";
 
 
-
 export default function JuryView({ route, navigation }) {
   const { game } = useContext(GameContext);
   const user = auth.currentUser.displayName;
   const participant = route.params.item[1];
   const [song, setSong] = useState(0);
-  const [spectalcle, setSpectacle] = useState(0);
+  const [spectacle, setSpectacle] = useState(0);
   const [vocal, setVocal] = useState(0);
   const [creative, setCreative] = useState(0);
   const [performance, setPerformance] = useState(0);
   const [total, setTotal] = useState({
     song: 0,
-    spectalcle: 0,
+    spectacle: 0,
     vocal: 0,
     creative: 0,
     performance: 0,
@@ -33,35 +32,24 @@ export default function JuryView({ route, navigation }) {
     setTotal({
       ...total,
       song: song,
-      spectalcle: spectalcle,
+      spectacle: spectacle,
       vocal: vocal,
       creative: creative,
       performance: performance,
-      total: (song + spectalcle + vocal + creative + performance)
+      total: (song + spectacle + vocal + creative + performance)
     })
   }
 
   useEffect(() => {
     calcTotal()
-  }, [song, spectalcle, vocal, creative, performance])
+  }, [song, spectacle, vocal, creative, performance])
 
   const saveScore = () => {
     const data = {
       user: user,
       score: total
     }
-    /* Tarkoituksena hakea maan pistetaulukko, ja tarkastaa onko käyttäjä jo antanut maalle pisteitä
-    findIndex?
-    onValue(ref(database, `/games/${game}/${participant.country}`), (snapshot) => {
-      let snap = Object.entries(snapshot.val())
-      console.log("snap", snap)
-      console.log(snap.flat().filter(item => item.user === user))
-      for (let x of snap) {
-        if (x.user === user) {
-          console.log(x)
-        }
-      }
-    })*/
+
     push(ref(database, `/games/${game}/${participant.country}`), data)
       .then(res => {
         setSaved("Tallennettu")

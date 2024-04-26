@@ -22,7 +22,7 @@ function Game({ route, navigation }) {
   }
 
   const joinGame = () => {
-    console.log("join game")
+    console.log("join game LISÄÄ TARKISTUS")
     if (game != null) {
       navigation.navigate('GameMode', { screen: 'Share' })
     }
@@ -68,7 +68,7 @@ function Game({ route, navigation }) {
             <Input
               label='GAME CODE'
               placeholder='Type in game code'
-              onChangeText={text => setGame(text)}
+              onChangeText={text => setGame(text.trim())}
               value={game}
             />
           </View>
