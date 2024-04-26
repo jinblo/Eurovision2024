@@ -1,5 +1,4 @@
 import { Text } from "@rneui/base";
-import { useEffect, useState } from "react";
 import { View } from "react-native";
 import { BarChart } from "react-native-gifted-charts";
 

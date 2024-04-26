@@ -1,8 +1,8 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebaseConfig";
+import { auth } from "../services/firebaseConfig";
 import { View } from "react-native";
 import { Input, Button, Text } from '@rneui/themed';
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { styles } from "../styles";
 

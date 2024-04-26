@@ -1,11 +1,10 @@
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth, database } from "../firebaseConfig";
+import { auth } from "../services/firebaseConfig";
 import { View } from "react-native";
 import { Input, Button, Text } from '@rneui/themed';
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { styles } from "../styles";
-import { push, ref } from "firebase/database";
 
 export default function Register() {
   const [email, setEmail] = useState('');

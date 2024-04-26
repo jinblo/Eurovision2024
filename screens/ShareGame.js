@@ -3,7 +3,7 @@ import { Card, Text } from '@rneui/themed';
 import { styles } from "../styles";
 import QRCode from 'react-native-qrcode-svg';
 import { useContext, useState } from "react";
-import { database } from "../firebaseConfig";
+import { database } from "../services/firebaseConfig";
 import { GameContext } from "../services/Context";
 
 
@@ -11,7 +11,7 @@ import { GameContext } from "../services/Context";
 function ShareGame({ route, navigation }) {
   const { game, setGame } = useContext(GameContext);
   console.log("ShareGame", game)
-  const url = `${database._rootInternal}games/${game}`
+  const url = `${game}`
 
   const exitGame = () => {
     setGame(null)
@@ -24,7 +24,10 @@ function ShareGame({ route, navigation }) {
         Share QRCode or gamecode for others to join
       </Text>
       <QRCode value={url} size={200} />
-      <Text h4 style={{ margin: 30, textAlign: 'center', color: 'red' }}>
+      <Text
+        selectable={true}
+        h4
+        style={{ margin: 30, textAlign: 'center', color: 'red' }}>
         {game}
       </Text>
       <TouchableOpacity

@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import { useContext, useEffect, useState } from "react";
-import { database } from "../firebaseConfig";
+import { useEffect, useState } from "react";
+import { database } from "../services/firebaseConfig";
 import { ref, onValue } from 'firebase/database';
 import { View } from 'react-native';
 import { FlatList } from "react-native";

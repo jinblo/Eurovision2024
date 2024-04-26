@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from "react";
-import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import { styles } from "../styles";
 import { GameContext } from "../services/Context";
 import { onValue, ref } from "firebase/database";
-import { database } from "../firebaseConfig";
-import { Button, Card } from "@rneui/base";
+import { database } from "../services/firebaseConfig";
+import { Card } from "@rneui/base";
 import ScoreChart from "../components/ScoreChart";
 import { Overlay } from "@rneui/themed";
 

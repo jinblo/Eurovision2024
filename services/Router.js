@@ -2,7 +2,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { getAuth } from 'firebase/auth';
 import Register from '../screens/Register';
 import Participants from '../screens/Participants';
 import Logout from '../components/Logout';
@@ -11,8 +10,8 @@ import JuryView from '../screens/JuryView';
 import Scoreboard from '../screens/Scoreboard';
 import Game from '../screens/Game';
 import ShareGame from '../screens/ShareGame';
-import { useContext, useState } from 'react';
-import { UserContext } from './Context';
+import { MyTheme } from '../styles';
+import QRScanner from '../components/QRScanner';
 
 
 const Tab = createBottomTabNavigator();
@@ -52,6 +51,7 @@ function ChooseGame() {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Game" component={Game} />
+      <Stack.Screen name="QR Scanner" component={QRScanner} />
       <Stack.Screen
         name="GameMode"
         component={GameMode}
@@ -88,7 +88,7 @@ function Performances() {
 export default function Router({ user }) {
 
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={MyTheme}>
       <Stack.Navigator >
         {user ?
           <Stack.Screen
