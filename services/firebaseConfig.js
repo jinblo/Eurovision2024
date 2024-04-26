@@ -5,10 +5,10 @@ import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: process.env.EXPO_PUBLIC_DB_APIKEY,
-  authDomain: "eurovision2024-3ea50.firebaseapp.com",
-  databaseURL: "https://eurovision2024-3ea50-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "eurovision2024-3ea50",
-  storageBucket: "eurovision2024-3ea50.appspot.com",
+  authDomain: process.env.EXPO_PUBLIC_DB_DOMAIN,
+  databaseURL: process.env.EXPO_PUBLIC_DB_URL,
+  projectId: process.env.EXPO_PUBLIC_DB_PROJECT_ID,
+  storageBucket: process.env.EXPO_PUBLIC_DB_BUCKET,
   messagingSenderId: process.env.EXPO_PUBLIC_DB_SENDER,
   appId: process.env.EXPO_PUBLIC_DB_APPID
 };
