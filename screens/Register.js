@@ -19,7 +19,7 @@ export default function Register() {
         updateProfile(auth.currentUser, { displayName: username })
           .then(ok => {
             console.log("updated")
-            navigation.navigate("Performances");
+            navigation.navigate('Play', { screen: 'Game' });
           })
       })
       .catch(error => {

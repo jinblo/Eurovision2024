@@ -5,7 +5,6 @@ import { useContext, useEffect, useState } from "react";
 import { onValue, push, ref } from "firebase/database";
 import { auth, database } from "../services/firebaseConfig";
 import { GameContext } from "../services/Context";
-import QRScanner from "../components/QRScanner";
 
 
 function Game({ route, navigation }) {
