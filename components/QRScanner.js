@@ -1,5 +1,5 @@
 import { Button, Text } from '@rneui/base';
-import { CameraView, useCameraPermissions } from 'expo-camera/next';
+import { CameraView, useCameraPermissions } from 'expo-camera';
 import { useContext, useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { GameContext } from '../services/Context';

@@ -2,9 +2,9 @@ import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from "react";
 import { database } from "../services/firebaseConfig";
 import { ref, onValue } from 'firebase/database';
-import { View } from 'react-native';
-import { FlatList } from "react-native";
+import { View, FlatList } from 'react-native';
 import { ListItem } from '@rneui/base';
+import { Audio } from 'expo-av';
 import { Button } from '@rneui/themed';
 import { styles } from '../styles';
 
@@ -16,7 +16,7 @@ export default function Participants({ route, navigation }) {
   const [token, setToken] = useState();
   const [playlist, setPlaylist] = useState([]);
 
-  useEffect(() => {
+  const getToken = () => {
     fetch("https://accounts.spotify.com/api/token", {
       method: 'POST',
       headers: {
@@ -26,13 +26,7 @@ export default function Participants({ route, navigation }) {
     })
       .then(response => response.json())
       .then(data => setToken(data.access_token))
-  }, []);
-
-  useEffect(() => {
-    onValue(ref(database, '/participants'), (snapshot) => {
-      setEntries(Object.entries(snapshot.val()))
-    })
-  }, []);
+  }
 
   const getPlaylist = () => {
     console.log("getPlaylist", token)
@@ -56,9 +50,24 @@ export default function Participants({ route, navigation }) {
       })
   }
 
+  async function playSound(url) {
+    const { sound } = await Audio.Sound.createAsync({ uri: url }, { shouldPlay: true });
+    await sound.playAsync();
+    await sound.unloadAsync();
+  }
+
+  useEffect(() => {
+    onValue(ref(database, '/participants'), (snapshot) => {
+      setEntries(Object.entries(snapshot.val()))
+    })
+  }, []);
+
+  useEffect(getToken, []);
+
+  useEffect(getPlaylist, [token]);
+
   return (
     <View style={styles.container}>
-      <Button onPress={getPlaylist} >fetch</Button>
       <FlatList
         style={{ width: '100%' }}
         data={playlist ? playlist : entries}
@@ -69,7 +78,10 @@ export default function Participants({ route, navigation }) {
               <ListItem.Subtitle>{item[1].country}</ListItem.Subtitle>
               <ListItem.Title>{item[1].artist}</ListItem.Title>
               <ListItem.Subtitle>{item[1].song}</ListItem.Subtitle>
-              <ListItem.Subtitle>{item.preview}</ListItem.Subtitle>
+              <ListItem.Subtitle>{item.preview ?
+                <Button title="Play" onPress={() => playSound(item.preview)} />
+                : null}
+              </ListItem.Subtitle>
               <Button title="Score" onPress={() => navigation.navigate('Score', { item })} />
             </ListItem.Content>
           </ListItem>
