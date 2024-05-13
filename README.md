@@ -10,7 +10,8 @@ Act as jurors for Eurovision 2024! This game app allows you to play with friends
 5. Open app in Expo Go or an emulator
 
 ## Technologies
-- Expo
-- React Native
+- Expo SDK 51
+- React Native 0.74.1
 - JavaScript
-- Firebase
+- Google Firebase
+- Spotify developer API

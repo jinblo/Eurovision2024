@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { Button, Card, Text } from '@rneui/themed';
 import Rating from "../components/Rating";
 import { styles } from "../styles";
-import { ref, set } from "firebase/database";
+import { onValue, ref, set } from "firebase/database";
 import { auth, database } from "../services/firebaseConfig";
 import { GameContext } from "../services/Context";
 
@@ -41,6 +41,19 @@ export default function JuryView({ route, navigation }) {
   }
 
   useEffect(() => {
+    onValue(ref(database, `/games/${game}/${participant.country}/${uid}`), (snapshot) => {
+      const data = snapshot.val()
+      if (data != null) {
+        setSong(data.score.song)
+        setSpectacle(data.score.spectacle)
+        setVocal(data.score.vocal)
+        setCreative(data.score.creative)
+        setPerformance(data.score.performance)
+      }
+    })
+  }, [])
+
+  useEffect(() => {
     calcTotal()
   }, [song, spectacle, vocal, creative, performance])
 
@@ -60,14 +73,13 @@ export default function JuryView({ route, navigation }) {
       <Card containerStyle={{ width: '80%', alignItems: 'center', marginBottom: 50, backgroundColor: '#b2ebf2', padding: 40 }}>
         <Card.Title>{participant.country}</Card.Title>
         <Card.Divider></Card.Divider>
-        <Text>flag here</Text>
         <Text h4>{participant.artist} - {participant.song}</Text>
       </Card>
-      <Rating setRate={setSong} text="Song" />
-      <Rating setRate={setSpectacle} text="Spectacle" />
-      <Rating setRate={setVocal} text="Vocal skills" />
-      <Rating setRate={setCreative} text="Creativity" />
-      <Rating setRate={setPerformance} text="Performance" />
+      <Rating setRate={setSong} text="Song" score={song} />
+      <Rating setRate={setSpectacle} text="Spectacle" score={spectacle} />
+      <Rating setRate={setVocal} text="Vocal skills" score={vocal} />
+      <Rating setRate={setCreative} text="Creativity" score={creative} />
+      <Rating setRate={setPerformance} text="Performance" score={performance} />
       <Text>Total: {score.total}</Text>
       <Button onPress={saveScore}>Save</Button>
       <Text>{saved}</Text>

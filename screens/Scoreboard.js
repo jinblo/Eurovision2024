@@ -1,12 +1,12 @@
 import { useContext, useEffect, useState } from "react";
-import { FlatList, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, TouchableOpacity, View } from 'react-native';
 import { styles } from "../styles";
 import { GameContext } from "../services/Context";
 import { onValue, ref } from "firebase/database";
 import { database } from "../services/firebaseConfig";
 import { Card } from "@rneui/base";
 import ScoreChart from "../components/ScoreChart";
-import { Overlay } from "@rneui/themed";
+import { Overlay, Text } from "@rneui/themed";
 
 export default function Scoreboard({ route, navigation }) {
   const { game } = useContext(GameContext);
@@ -52,7 +52,7 @@ export default function Scoreboard({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text>Scoreboard</Text>
+      <Text h3>Total scores</Text>
       {score ?
         <FlatList
           data={sortedScore}

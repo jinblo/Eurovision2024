@@ -1,7 +1,7 @@
 import { AirbnbRatingDefault } from "@rneui/themed/dist/AirbnbRating";
 import { Text } from '@rneui/themed';
 
-export default function Rating({ setRate, text }) {
+export default function Rating({ setRate, text, score }) {
 
   const finalRate = (rating) => {
     setRate(rating);
@@ -15,7 +15,7 @@ export default function Rating({ setRate, text }) {
         showRating={false}
         onFinishRating={finalRate}
         size={30}
-        defaultRating={0}
+        defaultRating={score}
       />
     </>
   )
