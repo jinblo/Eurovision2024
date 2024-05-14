@@ -15,3 +15,10 @@ Act as jurors for Eurovision 2024! This game app allows you to play with friends
 - JavaScript
 - Google Firebase
 - Spotify developer API
+- Expo AV
+- Expo Camera
+- React Native Elements
+- React Navigation
+- Ionicons
+- react-native-qrcode-svg
+- react-native-gifted-charts

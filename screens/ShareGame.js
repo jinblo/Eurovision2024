@@ -2,8 +2,7 @@ import { TouchableOpacity, View } from "react-native";
 import { Card, Text } from '@rneui/themed';
 import { styles } from "../styles";
 import QRCode from 'react-native-qrcode-svg';
-import { useContext, useState } from "react";
-import { database } from "../services/firebaseConfig";
+import { useContext } from "react";
 import { GameContext } from "../services/Context";
 
 

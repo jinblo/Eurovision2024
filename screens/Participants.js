@@ -1,6 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from "react";
-import Ionicons from '@expo/vector-icons/Ionicons';
 import { database } from "../services/firebaseConfig";
 import { ref, onValue } from 'firebase/database';
 import { View, FlatList, ActivityIndicator } from 'react-native';
