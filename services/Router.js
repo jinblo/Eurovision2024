@@ -12,6 +12,7 @@ import Game from '../screens/Game';
 import ShareGame from '../screens/ShareGame';
 import { MyTheme } from '../styles';
 import QRScanner from '../components/QRScanner';
+import { auth } from './firebaseConfig';
 
 
 const Tab = createBottomTabNavigator();
@@ -85,7 +86,8 @@ function Performances() {
   )
 }
 
-export default function Router({ user }) {
+export default function Router() {
+  const user = auth.currentUser;
 
   return (
     <NavigationContainer theme={MyTheme}>

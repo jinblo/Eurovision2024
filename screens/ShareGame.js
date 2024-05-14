@@ -10,7 +10,6 @@ import { GameContext } from "../services/Context";
 
 function ShareGame({ route, navigation }) {
   const { game, setGame } = useContext(GameContext);
-  console.log("ShareGame", game)
   const url = `${game}`
 
   const exitGame = () => {

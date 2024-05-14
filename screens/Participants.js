@@ -36,7 +36,6 @@ export default function Participants({ route, navigation }) {
 
   const getPlaylist = () => {
     setLoading(true)
-    console.log("getPlaylist", token)
     fetch("https://api.spotify.com/v1/playlists/37i9dQZF1DWVCKO3xAlT1Q/tracks", {
       headers: {
         "Authorization": `Bearer ${token}`
