@@ -6,9 +6,11 @@ import { styles } from "../styles";
 import { onValue, ref, set } from "firebase/database";
 import { auth, database } from "../services/firebaseConfig";
 import { GameContext } from "../services/Context";
+import { useTheme } from "@react-navigation/native";
 
 
 export default function JuryView({ route, navigation }) {
+  const { colors } = useTheme();
   const { game } = useContext(GameContext);
   const user = auth.currentUser.displayName;
   const uid = auth.currentUser.uid;
@@ -81,7 +83,7 @@ export default function JuryView({ route, navigation }) {
       <Rating setRate={setCreative} text="Creativity" score={creative} />
       <Rating setRate={setPerformance} text="Performance" score={performance} />
       <Text>Total: {score.total}</Text>
-      <Button onPress={saveScore}>Save</Button>
+      <Button onPress={saveScore} color={colors.primary} >Save</Button>
       <Text>{saved}</Text>
     </View>
   )

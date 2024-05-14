@@ -8,6 +8,8 @@ import { ListItem } from '@rneui/base';
 import { Audio } from 'expo-av';
 import { Avatar, Button } from '@rneui/themed';
 import { styles } from '../styles';
+import PlayPreview from '../components/PlayPreview';
+import { useTheme } from '@react-navigation/native';
 
 
 export default function Participants({ route, navigation }) {
@@ -17,6 +19,7 @@ export default function Participants({ route, navigation }) {
   const [entries, setEntries] = useState([]);
   const [token, setToken] = useState();
   const [playlist, setPlaylist] = useState([]);
+  const { colors } = useTheme();
 
   const getToken = () => {
     setLoading(true)
@@ -88,9 +91,9 @@ export default function Participants({ route, navigation }) {
                 <ListItem.Title>{item[1].artist}</ListItem.Title>
                 <ListItem.Subtitle>{item[1].song}</ListItem.Subtitle>
                 {item.track.preview ?
-                  <Ionicons name='play' onPress={() => playSound(item.track.preview)} size={20} style={{ padding: 5 }} />
+                  <PlayPreview url={item.track.preview} />
                   : null}
-                <Button title="Score" onPress={() => navigation.navigate('Score', { item })} />
+                <Button title="Score" color={colors.primary} onPress={() => navigation.navigate('Score', { item })} />
               </ListItem.Content>
               {item.track.image ? <Avatar source={{ uri: item.track.image }} size='xlarge' /> : null}
             </ListItem>
