@@ -4,7 +4,6 @@ import { database } from "../services/firebaseConfig";
 import { ref, onValue } from 'firebase/database';
 import { View, FlatList, ActivityIndicator } from 'react-native';
 import { ListItem } from '@rneui/base';
-import { Audio } from 'expo-av';
 import { Avatar, Button } from '@rneui/themed';
 import { styles } from '../styles';
 import PlayPreview from '../components/PlayPreview';
@@ -58,11 +57,6 @@ export default function Participants({ route, navigation }) {
       })
   }
 
-  async function playSound(url) {
-    const { sound } = await Audio.Sound.createAsync({ uri: url }, { shouldPlay: true });
-    await sound.playAsync();
-  }
-
   useEffect(() => {
     onValue(ref(database, '/participants'), (snapshot) => {
       setEntries(Object.entries(snapshot.val()))
@@ -80,7 +74,7 @@ export default function Participants({ route, navigation }) {
         :
         <FlatList
           style={{ width: '100%' }}
-          data={playlist ? playlist : entries}
+          data={playlist}
           keyExtractor={(item) => item[0].toString()}
           renderItem={({ item }) =>
             <ListItem bottomDivider>
